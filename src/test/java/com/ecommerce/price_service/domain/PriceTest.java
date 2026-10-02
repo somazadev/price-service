@@ -17,8 +17,8 @@ public class PriceTest {
     private static final LocalDateTime START = LocalDateTime.of(2020, 6, 14, 15, 0);
     private static final LocalDateTime END = LocalDateTime.of(2020, 6, 14, 18, 30);
 
-    private static Price price(LocalDateTime start, LocalDateTime end, BigDecimal amount) {
-        return new Price(1L, 35455L, 2, 1, start, end, amount, Currency.getInstance("EUR"));
+    private static Price price(LocalDateTime start, LocalDateTime end, BigDecimal price) {
+        return new Price(1L, 35455L, 2, 1, start, end, price, Currency.getInstance("EUR"));
     }
 
     @Nested
@@ -65,10 +65,10 @@ public class PriceTest {
         }
 
         @Test
-        void rejectsNegativeAmount() {
+        void rejectsNegativePrice() {
             assertThatThrownBy(() -> price(START, END, new BigDecimal("-0.01")))
                     .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessageContaining("amount");
+                    .hasMessageContaining("price");
         }
 
         @Test
