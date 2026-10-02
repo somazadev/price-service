@@ -4,7 +4,7 @@ import com.ecommerce.price_service.domain.model.Price;
 /**
  * Input port: returns the price that applies to a product of a brand at a given date.
  *
- * @throws com.ecommerce.pricing.domain.exception.PriceNotFoundException if no price applies
+ * @throws com.ecommerce.price_service.domain.exception.PriceNotFoundException
  */
 public interface GetApplicablePriceUseCase {
 
