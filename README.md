@@ -317,5 +317,5 @@ git log --oneline --graph
 
 Claude (Anthropic) was used as an AI pair-programming assistant throughout the exercise: to evaluate design alternatives for the hexagonal architecture, to enumerate test cases, to troubleshoot framework and environment issues, and to review the repository against the requirements. Every suggestion was reviewed, adapted and validated by the test suite before being committed.
 
-Details, and what was decided or changed in each case, are documented in
-[`docs/AI_USAGE.md`](docs/AI_USAGE.md).
+The workflow, the areas where AI was used and the decisions made along the way are described in
+[`docs/AI_USAGE.md`](docs/AI_USAGE.md).[`docs/AI_USAGE.md`](docs/AI_USAGE.md).
