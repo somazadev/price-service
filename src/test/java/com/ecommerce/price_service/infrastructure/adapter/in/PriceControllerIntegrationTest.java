@@ -13,6 +13,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.hamcrest.Matchers.containsString;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -61,8 +62,9 @@ public class PriceControllerIntegrationTest {
                         .param("brandId", BRAND_ID))
                 .andExpect(status().isNotFound())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_PROBLEM_JSON))
+                .andExpect(jsonPath("$.status").value(404))
                 .andExpect(jsonPath("$.title").value("Price not found"))
-                .andExpect(jsonPath("$.status").value(404));
+                .andExpect(jsonPath("$.detail").value(containsString("35455")));
     }
 
     @Test
@@ -71,7 +73,11 @@ public class PriceControllerIntegrationTest {
                         .param("applicationDate", "2020-06-14T10:00:00")
                         .param("productId", "99999")
                         .param("brandId", BRAND_ID))
-                .andExpect(status().isNotFound());
+                .andExpect(status().isNotFound())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_PROBLEM_JSON))
+                .andExpect(jsonPath("$.status").value(404))
+                .andExpect(jsonPath("$.title").value("Price not found"))
+                .andExpect(jsonPath("$.detail").value(containsString("99999")));
     }
 
     @Test
@@ -80,7 +86,10 @@ public class PriceControllerIntegrationTest {
                         .param("applicationDate", "2020-06-14T10:00:00")
                         .param("productId", PRODUCT_ID))
                 .andExpect(status().isBadRequest())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_PROBLEM_JSON));
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_PROBLEM_JSON))
+                .andExpect(jsonPath("$.status").value(400))
+                .andExpect(jsonPath("$.title").value("Invalid request"))
+                .andExpect(jsonPath("$.detail").value("Required parameter 'brandId' is missing"));
     }
 
     @Test
@@ -90,7 +99,10 @@ public class PriceControllerIntegrationTest {
                         .param("productId", PRODUCT_ID)
                         .param("brandId", BRAND_ID))
                 .andExpect(status().isBadRequest())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_PROBLEM_JSON));
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_PROBLEM_JSON))
+                .andExpect(jsonPath("$.status").value(400))
+                .andExpect(jsonPath("$.title").value("Invalid request"))
+                .andExpect(jsonPath("$.detail").value(containsString("applicationDate")));
     }
 
     @Test
@@ -100,6 +112,9 @@ public class PriceControllerIntegrationTest {
                         .param("productId", PRODUCT_ID)
                         .param("brandId", "-1"))
                 .andExpect(status().isBadRequest())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_PROBLEM_JSON));
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_PROBLEM_JSON))
+                .andExpect(jsonPath("$.status").value(400))
+                .andExpect(jsonPath("$.title").value("Invalid request"))
+                .andExpect(jsonPath("$.detail").value("brandId must be a positive number"));
     }
 }
