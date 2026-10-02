@@ -22,14 +22,14 @@ public record Price(
     Objects.requireNonNull(priority, "priority must not be null");
     Objects.requireNonNull(startDate, "startDate must not be null");
     Objects.requireNonNull(endDate, "endDate must not be null");
-    Objects.requireNonNull(price, "amount must not be null");
+    Objects.requireNonNull(price, "price must not be null");
     Objects.requireNonNull(currency, "currency must not be null");
 
     if (startDate.isAfter(endDate)) {
         throw new IllegalArgumentException("startDate must not be after endDate");
     }
     if (price.signum() < 0) {
-        throw new IllegalArgumentException("amount must not be negative");
+        throw new IllegalArgumentException("price must not be negative");
     }
 }
     public boolean isApplicableAt(LocalDateTime date) {
