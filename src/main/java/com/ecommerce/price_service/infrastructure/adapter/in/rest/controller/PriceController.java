@@ -8,7 +8,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.constraints.Positive;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,9 +36,9 @@ public class PriceController {
             @Parameter(description = "Application date (ISO-8601)", example = "2020-06-14T16:00:00")
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime applicationDate,
             @Parameter(description = "Product identifier", example = "35455")
-            @RequestParam @Positive Long productId,
+            @RequestParam  Long productId,
             @Parameter(description = "Brand identifier", example = "1")
-            @RequestParam @Positive Long brandId) {
+            @RequestParam Long brandId) {
 
         var query = new GetApplicablePriceQuery(brandId, productId, applicationDate);
         return PriceRestMapper.toResponse(getApplicablePriceUseCase.getApplicablePrice(query));
