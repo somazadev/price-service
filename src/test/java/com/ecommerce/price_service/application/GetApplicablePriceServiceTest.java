@@ -39,10 +39,10 @@ public class GetApplicablePriceServiceTest {
         service = new GetApplicablePriceService(priceRepository, new ApplicablePriceResolver());
     }
 
-    private static Price price(int priceList, int priority, String amount) {
+    private static Price price(int priceList, int priority, String price) {
         return new Price(BRAND_ID, PRODUCT_ID, priceList, priority,
                 LocalDateTime.of(2020, 6, 14, 0, 0), LocalDateTime.of(2020, 12, 31, 23, 59, 59),
-                new BigDecimal(amount), Currency.getInstance("EUR"));
+                new BigDecimal(price), Currency.getInstance("EUR"));
     }
 
     @Test
