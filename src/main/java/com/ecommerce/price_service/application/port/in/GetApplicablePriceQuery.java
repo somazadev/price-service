@@ -3,7 +3,6 @@ package com.ecommerce.price_service.application.port.in;
 import com.ecommerce.price_service.application.exception.InvalidPriceQueryException;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 public record GetApplicablePriceQuery(Long brandId, Long productId, LocalDateTime applicationDate) {
 
